@@ -26,7 +26,6 @@
     overflow-x: hidden;
   }
 
-  /* Decorative top bar */
   .flag-bar {
     height: 6px;
     background: linear-gradient(to right, var(--verde) 33.3%, white 33.3%, white 66.6%, var(--rosso) 66.6%);
@@ -41,16 +40,6 @@
     overflow: hidden;
   }
 
-  header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(212,168,71,0.15) 0%, transparent 70%);
-  }
-
-  .header-emoji { font-size: 3rem; animation: sway 3s ease-in-out infinite; }
-  @keyframes sway { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }
-
   header h1 {
     font-family: 'Playfair Display', serif;
     font-size: 2.2rem;
@@ -61,18 +50,19 @@
 
   header p { color: #c8b88a; font-size: 0.9rem; }
 
-  /* Tab nav */
   .tabs {
     display: flex;
     overflow-x: auto;
     background: var(--scuro);
     border-bottom: 3px solid var(--oro);
-    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 
   .tab-btn {
     flex: 1;
-    min-width: 80px;
+    min-width: 90px;
     padding: 0.8rem 0.5rem;
     background: none;
     border: none;
@@ -82,30 +72,25 @@
     cursor: pointer;
     transition: all 0.25s;
     white-space: nowrap;
-    text-align: center;
   }
 
   .tab-btn.active {
     color: var(--oro);
     background: rgba(212,168,71,0.12);
     border-bottom: 3px solid var(--oro);
-    margin-bottom: -3px;
     font-weight: 600;
   }
 
-  .tab-btn:hover:not(.active) { color: var(--crema); }
-
-  /* Sections */
   .section { display: none; padding: 1.5rem 1rem; animation: fadeIn 0.4s ease; }
   .section.active { display: block; }
+
   @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-  /* Cards */
   .card {
     background: white;
     border-radius: 12px;
     padding: 1.4rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     box-shadow: 0 2px 12px rgba(0,0,0,0.07);
     border-left: 4px solid var(--oro);
   }
@@ -113,22 +98,16 @@
   .card h3 {
     font-family: 'Playfair Display', serif;
     color: var(--medio);
-    font-size: 1.05rem;
-    margin-bottom: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
 
-  /* Phrase rows */
   .phrase-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.65rem 0;
+    padding: 0.7rem 0;
     border-bottom: 1px dashed #e8d9b5;
-    gap: 0.5rem;
-    flex-wrap: wrap;
   }
 
   .phrase-row:last-child { border-bottom: none; }
@@ -138,777 +117,203 @@
     font-style: italic;
     font-size: 1.15rem;
     color: var(--rosso);
-    font-weight: 500;
-  }
-
-  .bangla { 
-    font-size: 0.85rem; 
-    color: var(--medio);
+    font-weight: 600;
   }
 
   .pronun {
     font-size: 0.75rem;
-    color: #aaa;
-    font-style: normal;
-    font-family: monospace;
+    color: #777;
     background: var(--chiaro);
     padding: 2px 6px;
     border-radius: 4px;
+    margin: 0 5px;
   }
+
+  .bangla { font-size: 0.85rem; color: var(--medio); }
 
   .speak-btn {
     background: var(--verde);
     color: white;
     border: none;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     cursor: pointer;
     font-size: 0.9rem;
-    transition: transform 0.2s, background 0.2s;
-    flex-shrink: 0;
   }
 
-  .speak-btn:hover { background: #007a38; transform: scale(1.1); }
-  .speak-btn:active { transform: scale(0.95); }
-
-  /* Alphabet grid */
-  .alpha-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-
+  .alpha-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
   .alpha-cell {
     background: var(--chiaro);
     border-radius: 8px;
-    padding: 0.6rem 0.3rem;
+    padding: 0.6rem 0.2rem;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s;
-    border: 2px solid transparent;
   }
 
-  .alpha-cell:hover { border-color: var(--oro); background: white; }
-  .alpha-cell .letter { font-size: 1.3rem; color: var(--rosso); font-family: 'Playfair Display', serif; }
-  .alpha-cell .sound { font-size: 0.65rem; color: var(--medio); margin-top: 2px; }
-
-  /* Numbers */
-  .num-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-  }
-
-  .num-cell {
-    background: var(--chiaro);
-    border-radius: 8px;
-    padding: 0.7rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .num-cell:hover { background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-  .num-digit { font-size: 1.4rem; font-weight: 700; color: var(--rosso); }
-  .num-word { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--scuro); }
-  .num-bn { font-size: 0.75rem; color: var(--medio); }
-
-  /* Quiz */
-  .quiz-card {
-    background: white;
-    border-radius: 16px;
-    padding: 1.8rem 1.4rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    text-align: center;
-  }
-
-  .quiz-question {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--rosso);
-    margin-bottom: 0.4rem;
-    font-style: italic;
-  }
-
-  .quiz-hint { font-size: 0.8rem; color: #aaa; margin-bottom: 1.5rem; }
-
-  .quiz-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-    margin-bottom: 1rem;
-  }
-
+  .quiz-card { background: white; border-radius: 16px; padding: 2rem 1rem; text-align: center; }
   .quiz-opt {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 1rem;
     background: var(--chiaro);
     border: 2px solid transparent;
     border-radius: 10px;
-    padding: 0.9rem 0.5rem;
-    font-family: 'Noto Sans Bengali', sans-serif;
-    font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.2s;
-    color: var(--scuro);
-  }
-
-  .quiz-opt:hover { border-color: var(--oro); background: white; }
-  .quiz-opt.correct { background: #d4edda; border-color: var(--verde); color: #155724; }
-  .quiz-opt.wrong { background: #f8d7da; border-color: var(--rosso); color: #721c24; }
-
-  .quiz-result { font-size: 1rem; font-weight: 600; min-height: 1.5rem; margin-bottom: 0.5rem; }
-  .quiz-result.win { color: var(--verde); }
-  .quiz-result.lose { color: var(--rosso); }
-
-  .quiz-score {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 1rem;
-    font-size: 0.85rem;
-  }
-
-  .score-item span { font-size: 1.3rem; font-weight: 700; display: block; text-align: center; }
-  .score-item.correct-s span { color: var(--verde); }
-  .score-item.wrong-s span { color: var(--rosso); }
-
-  .next-btn {
-    background: var(--scuro);
-    color: var(--oro);
-    border: none;
-    border-radius: 10px;
-    padding: 0.8rem 2rem;
-    font-family: 'Noto Sans Bengali', sans-serif;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-weight: 600;
-  }
-
-  .next-btn:hover { background: var(--medio); transform: translateY(-2px); }
-
-  /* Progress */
-  .progress-section { margin-bottom: 1rem; }
-  .progress-label { font-size: 0.8rem; color: var(--medio); margin-bottom: 0.3rem; display: flex; justify-content: space-between; }
-  .progress-bar { background: var(--chiaro); border-radius: 10px; height: 8px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(to right, var(--verde), var(--oro)); border-radius: 10px; transition: width 0.5s ease; }
-
-  /* Tips box */
-  .tip-box {
-    background: linear-gradient(135deg, #fff8e7, #fff3d0);
-    border: 1px solid var(--oro);
-    border-radius: 10px;
-    padding: 1rem;
-    margin-bottom: 0.8rem;
-    font-size: 0.85rem;
-    line-height: 1.6;
-  }
-
-  .tip-box strong { color: var(--rosso); }
-
-  /* Section title */
-  .sec-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: var(--scuro);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  /* Responsive */
-  @media (max-width: 400px) {
-    header h1 { font-size: 1.7rem; }
-    .alpha-grid { grid-template-columns: repeat(4, 1fr); }
-  }
-
-  .badge {
-    display: inline-block;
-    background: var(--oro);
-    color: var(--scuro);
-    font-size: 0.65rem;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 700;
-    vertical-align: middle;
   }
 </style>
 </head>
 <body>
 
 <div class="flag-bar"></div>
-
 <header>
-  <div class="header-emoji">🇮🇹</div>
   <h1>Italiano Shikhi</h1>
-  <p>ইতালিয়ান ভাষা শেখার সহজ গাইড — একদম শুরু থেকে</p>
+  <p>ইতালিয়ান ভাষা শেখার সহজ গাইড</p>
 </header>
 
 <nav class="tabs">
   <button class="tab-btn active" onclick="showTab('intro')">📖 পরিচয়</button>
   <button class="tab-btn" onclick="showTab('alphabet')">🔤 বর্ণমালা</button>
-  <button class="tab-btn" onclick="showTab('basics')">💬 মূল কথা</button>
-  <button class="tab-btn" onclick="showTab('numbers')">🔢 সংখ্যা</button>
-  <button class="tab-btn" onclick="showTab('phrases')">🗣️ বাক্য</button>
+  <button class="tab-btn" onclick="showTab('vocabulary')">📚 শব্দভাণ্ডার</button>
   <button class="tab-btn" onclick="showTab('quiz')">🧠 কুইজ</button>
 </nav>
 
-<!-- INTRO -->
 <div id="intro" class="section active">
-  <h2 class="sec-title">🌟 Italian শেখা শুরু করি!</h2>
-
-  <div class="tip-box">
-    <strong>Italian কেন শিখবে?</strong><br>
-    Italian হলো বিশ্বের অন্যতম সুন্দর ভাষা। ইতালি, সুইজারল্যান্ড এবং ক্রোয়েশিয়ায় প্রায় <strong>৬৫ মিলিয়ন</strong> মানুষ এই ভাষায় কথা বলে। Opera, Fashion, Food — সব কিছুতেই Italian!
-  </div>
-
   <div class="card">
-    <h3>✅ Italian ভাষার বৈশিষ্ট্য</h3>
-    <div class="phrase-row">
-      <span class="bangla">🎵 Italian খুব সুরেলা — প্রতিটি শব্দ vowel দিয়ে শেষ হয়</span>
-    </div>
-    <div class="phrase-row">
-      <span class="bangla">📝 ২১টি অক্ষর — ইংরেজির মতোই তবে ৫টি কম</span>
-    </div>
-    <div class="phrase-row">
-      <span class="bangla">🔊 যেভাবে লেখা হয়, সেভাবেই উচ্চারণ হয়!</span>
-    </div>
-    <div class="phrase-row">
-      <span class="bangla">👫 Noun এর লিঙ্গ থাকে — পুংলিঙ্গ ও স্ত্রীলিঙ্গ</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>🗺️ শেখার পথ</h3>
-    <div class="progress-section">
-      <div class="progress-label"><span>বর্ণমালা</span><span>ধাপ ১</span></div>
-      <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-    </div>
-    <div class="progress-section">
-      <div class="progress-label"><span>মূল শব্দ ও অভিনন্দন</span><span>ধাপ ২</span></div>
-      <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
-    </div>
-    <div class="progress-section">
-      <div class="progress-label"><span>সংখ্যা ও রং</span><span>ধাপ ৩</span></div>
-      <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
-    </div>
-    <div class="progress-section">
-      <div class="progress-label"><span>দৈনন্দিন বাক্য</span><span>ধাপ ৪</span></div>
-      <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
-    </div>
-    <div class="progress-section">
-      <div class="progress-label"><span>কুইজ দিয়ে অনুশীলন</span><span>ধাপ ৫</span></div>
-      <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
-    </div>
-  </div>
-
-  <div class="tip-box">
-    💡 <strong>টিপস:</strong> উপরের ট্যাব গুলো একে একে দেখো। প্রতিটি Italian শব্দের পাশে 🔊 বাটনে চাপলে উচ্চারণ শুনতে পাবে!
+    <h3>🌟 স্বাগতম</h3>
+    <p>নিচের ট্যাবগুলো ব্যবহার করে ইতালিয়ান ভাষা শেখা শুরু করুন। প্রতিটি শব্দের পাশে থাকা স্পিকার আইকনে ক্লিক করলে আপনি সঠিক উচ্চারণ শুনতে পাবেন।</p>
   </div>
 </div>
 
-<!-- ALPHABET -->
 <div id="alphabet" class="section">
-  <h2 class="sec-title">🔤 Italian বর্ণমালা</h2>
-
-  <div class="tip-box">
-    Italian-এ মোট <strong>২১টি অক্ষর</strong>। J, K, W, X, Y — এই ৫টি ইংরেজি অক্ষর Italian-এ নেই (শুধু বিদেশি শব্দে ব্যবহার হয়)। <strong>Vowel:</strong> A, E, I, O, U
-  </div>
-
   <div class="card">
-    <h3>📝 সব অক্ষর <span class="badge">ক্লিক করো</span></h3>
+    <h3>🔤 বর্ণমালা (Alfabeto)</h3>
     <div class="alpha-grid" id="alphaGrid"></div>
   </div>
+</div>
 
+<div id="vocabulary" class="section">
   <div class="card">
-    <h3>🎵 Vowel উচ্চারণ (স্বরবর্ণ)</h3>
-    <div class="phrase-row">
-      <span class="italian">A</span>
-      <span class="pronun">আ (যেমন: "আম")</span>
-      <button class="speak-btn" onclick="speak('a')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">E</span>
-      <span class="pronun">এ (যেমন: "এক")</span>
-      <button class="speak-btn" onclick="speak('e')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">I</span>
-      <span class="pronun">ই (যেমন: "ইট")</span>
-      <button class="speak-btn" onclick="speak('i')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">O</span>
-      <span class="pronun">ও (যেমন: "ওড়না")</span>
-      <button class="speak-btn" onclick="speak('o')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">U</span>
-      <span class="pronun">উ (যেমন: "উঠান")</span>
-      <button class="speak-btn" onclick="speak('u')">🔊</button>
-    </div>
+    <h3>👨‍👩‍👧 পরিবার (Famiglia)</h3>
+    <div class="phrase-row"><span class="content"><span class="italian">Madre</span><span class="pronun">মাদ্রে</span><span class="bangla">মা</span></span><button class="speak-btn" onclick="speak('Madre')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Padre</span><span class="pronun">পাদ্রে</span><span class="bangla">বাবা</span></span><button class="speak-btn" onclick="speak('Padre')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Fratello</span><span class="pronun">ফ্রাতেল্লো</span><span class="bangla">ভাই</span></span><button class="speak-btn" onclick="speak('Fratello')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Sorella</span><span class="pronun">সোরেল্লা</span><span class="bangla">বোন</span></span><button class="speak-btn" onclick="speak('Sorella')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Figlio</span><span class="pronun">ফিলিও</span><span class="bangla">ছেলে</span></span><button class="speak-btn" onclick="speak('Figlio')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Figlia</span><span class="pronun">ফিলিয়া</span><span class="bangla">মেয়ে</span></span><button class="speak-btn" onclick="speak('Figlia')">🔊</button></div>
   </div>
 
   <div class="card">
-    <h3>⚠️ বিশেষ উচ্চারণ নিয়ম</h3>
-    <div class="phrase-row">
-      <span class="italian">C + A/O/U</span>
-      <span class="pronun">"ক" উচ্চারণ → Cane = কানে</span>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">C + E/I</span>
-      <span class="pronun">"চ" উচ্চারণ → Ciao = চাও</span>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">G + A/O/U</span>
-      <span class="pronun">"গ" উচ্চারণ → Gatto = গাত্তো</span>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">G + E/I</span>
-      <span class="pronun">"জ" উচ্চারণ → Gelato = জেলাতো</span>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">GLI</span>
-      <span class="pronun">"লি" উচ্চারণ → Figlio = ফিলিও</span>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">GN</span>
-      <span class="pronun">"ন্য" উচ্চারণ → Gnocchi = ন্যোকি</span>
-    </div>
+    <h3>🕐 সময় (Tempo)</h3>
+    <div class="phrase-row"><span class="content"><span class="italian">Oggi</span><span class="pronun">ওজি</span><span class="bangla">আজ</span></span><button class="speak-btn" onclick="speak('Oggi')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Ieri</span><span class="pronun">ইয়েরি</span><span class="bangla">গতকাল</span></span><button class="speak-btn" onclick="speak('Ieri')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Domani</span><span class="pronun">দোমানি</span><span class="bangla">আগামীকাল</span></span><button class="speak-btn" onclick="speak('Domani')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Notte</span><span class="pronun">নোত্তে</span><span class="bangla">রাত</span></span><button class="speak-btn" onclick="speak('Notte')">🔊</button></div>
+  </div>
+
+  <div class="card">
+    <h3>📅 সপ্তাহের দিন (Giorni)</h3>
+    <div class="phrase-row"><span class="content"><span class="italian">Lunedì</span><span class="pronun">লুনেদি</span><span class="bangla">সোমবার</span></span><button class="speak-btn" onclick="speak('Lunedì')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Venerdì</span><span class="pronun">ভেনেরদি</span><span class="bangla">শুক্রবার</span></span><button class="speak-btn" onclick="speak('Venerdì')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Domenica</span><span class="pronun">দোমেনিকা</span><span class="bangla">রবিবার</span></span><button class="speak-btn" onclick="speak('Domenica')">🔊</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🌦️ আবহাওয়া (Meteo)</h3>
+    <div class="phrase-row"><span class="content"><span class="italian">Sole</span><span class="pronun">সোলে</span><span class="bangla">রোদ</span></span><button class="speak-btn" onclick="speak('Sole')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Pioggia</span><span class="pronun">পিওজ্জা</span><span class="bangla">বৃষ্টি</span></span><button class="speak-btn" onclick="speak('Pioggia')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Freddo</span><span class="pronun">ফ্রেদ্দো</span><span class="bangla">ঠান্ডা</span></span><button class="speak-btn" onclick="speak('Freddo')">🔊</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🏠 বাড়ি ও জায়গা (Luoghi)</h3>
+    <div class="phrase-row"><span class="content"><span class="italian">Casa</span><span class="pronun">কাজা</span><span class="bangla">বাড়ি</span></span><button class="speak-btn" onclick="speak('Casa')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Scuola</span><span class="pronun">স্কুওলা</span><span class="bangla">স্কুল</span></span><button class="speak-btn" onclick="speak('Scuola')">🔊</button></div>
+  </div>
+
+  <div class="card">
+    <h3>🍎 খাবার (Cibo)</h3>
+    <div class="phrase-row"><span class="content"><span class="italian">Pane</span><span class="pronun">পানে</span><span class="bangla">রুটি</span></span><button class="speak-btn" onclick="speak('Pane')">🔊</button></div>
+    <div class="phrase-row"><span class="content"><span class="italian">Acqua</span><span class="pronun">আক্কোয়া</span><span class="bangla">পানি</span></span><button class="speak-btn" onclick="speak('Acqua')">🔊</button></div>
   </div>
 </div>
 
-<!-- BASICS -->
-<div id="basics" class="section">
-  <h2 class="sec-title">💬 মূল শব্দ ও অভিনন্দন</h2>
-
-  <div class="card">
-    <h3>👋 সম্ভাষণ (Greetings)</h3>
-    <div class="phrase-row">
-      <span class="italian">Ciao</span>
-      <span class="pronun">চাও</span>
-      <span class="bangla">হ্যালো / বাই</span>
-      <button class="speak-btn" onclick="speak('Ciao')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Buongiorno</span>
-      <span class="pronun">বুওনজর্নো</span>
-      <span class="bangla">শুভ সকাল</span>
-      <button class="speak-btn" onclick="speak('Buongiorno')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Buonasera</span>
-      <span class="pronun">বুওনাসেরা</span>
-      <span class="bangla">শুভ সন্ধ্যা</span>
-      <button class="speak-btn" onclick="speak('Buonasera')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Buonanotte</span>
-      <span class="pronun">বুওনানোত্তে</span>
-      <span class="bangla">শুভ রাত্রি</span>
-      <button class="speak-btn" onclick="speak('Buonanotte')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Arrivederci</span>
-      <span class="pronun">আরিভেদের্চি</span>
-      <span class="bangla">বিদায়</span>
-      <button class="speak-btn" onclick="speak('Arrivederci')">🔊</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>🙏 ভদ্রতা (Politeness)</h3>
-    <div class="phrase-row">
-      <span class="italian">Grazie</span>
-      <span class="pronun">গ্রাৎসিয়ে</span>
-      <span class="bangla">ধন্যবাদ</span>
-      <button class="speak-btn" onclick="speak('Grazie')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Prego</span>
-      <span class="pronun">প্রেগো</span>
-      <span class="bangla">আপনাকে স্বাগতম</span>
-      <button class="speak-btn" onclick="speak('Prego')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Scusa</span>
-      <span class="pronun">স্কুজা</span>
-      <span class="bangla">মাফ করবেন</span>
-      <button class="speak-btn" onclick="speak('Scusa')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Per favore</span>
-      <span class="pronun">পের ফাভোরে</span>
-      <span class="bangla">দয়া করে</span>
-      <button class="speak-btn" onclick="speak('Per favore')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Sì / No</span>
-      <span class="pronun">সি / নো</span>
-      <span class="bangla">হ্যাঁ / না</span>
-      <button class="speak-btn" onclick="speak('Sì, No')">🔊</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>🎨 রং (Colors)</h3>
-    <div class="phrase-row">
-      <span class="italian">Rosso</span>
-      <span class="pronun">রোস্সো</span>
-      <span class="bangla">🔴 লাল</span>
-      <button class="speak-btn" onclick="speak('Rosso')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Blu</span>
-      <span class="pronun">ব্লু</span>
-      <span class="bangla">🔵 নীল</span>
-      <button class="speak-btn" onclick="speak('Blu')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Verde</span>
-      <span class="pronun">ভের্দে</span>
-      <span class="bangla">🟢 সবুজ</span>
-      <button class="speak-btn" onclick="speak('Verde')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Giallo</span>
-      <span class="pronun">জাল্লো</span>
-      <span class="bangla">🟡 হলুদ</span>
-      <button class="speak-btn" onclick="speak('Giallo')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Bianco</span>
-      <span class="pronun">বিয়াঙ্কো</span>
-      <span class="bangla">⚪ সাদা</span>
-      <button class="speak-btn" onclick="speak('Bianco')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Nero</span>
-      <span class="pronun">নেরো</span>
-      <span class="bangla">⚫ কালো</span>
-      <button class="speak-btn" onclick="speak('Nero')">🔊</button>
-    </div>
-  </div>
-</div>
-
-<!-- NUMBERS -->
-<div id="numbers" class="section">
-  <h2 class="sec-title">🔢 সংখ্যা (Numeri)</h2>
-
-  <div class="tip-box">
-    ইতালিয়ানে সংখ্যা শেখা খুব সহজ! ১-১০ ভালো করে মুখস্থ করলে বাকিগুলো নিজেই বুঝতে পারবে। 🔊 ক্লিক করে উচ্চারণ শুনো!
-  </div>
-
-  <div class="card">
-    <h3>১ থেকে ২০</h3>
-    <div class="num-grid" id="numGrid"></div>
-  </div>
-
-  <div class="card">
-    <h3>বড় সংখ্যা</h3>
-    <div class="phrase-row">
-      <span class="italian">Trenta</span>
-      <span class="bangla">৩০ — ত্রেন্তা</span>
-      <button class="speak-btn" onclick="speak('Trenta')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Quaranta</span>
-      <span class="bangla">৪০ — কোয়ারান্তা</span>
-      <button class="speak-btn" onclick="speak('Quaranta')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Cinquanta</span>
-      <span class="bangla">৫০ — চিঙ্কোয়ান্তা</span>
-      <button class="speak-btn" onclick="speak('Cinquanta')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Cento</span>
-      <span class="bangla">১০০ — চেন্তো</span>
-      <button class="speak-btn" onclick="speak('Cento')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <span class="italian">Mille</span>
-      <span class="bangla">১০০০ — মিল্লে</span>
-      <button class="speak-btn" onclick="speak('Mille')">🔊</button>
-    </div>
-  </div>
-</div>
-
-<!-- PHRASES -->
-<div id="phrases" class="section">
-  <h2 class="sec-title">🗣️ দৈনন্দিন বাক্য</h2>
-
-  <div class="card">
-    <h3>🤝 নিজের পরিচয় দেওয়া</h3>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Mi chiamo...</div>
-        <div class="pronun">মি কিয়ামো...</div>
-        <div class="bangla">আমার নাম...</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Mi chiamo')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Sono di Bangladesh</div>
-        <div class="pronun">সোনো দি বাংলাদেশ</div>
-        <div class="bangla">আমি বাংলাদেশ থেকে</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Sono di Bangladesh')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Come stai?</div>
-        <div class="pronun">কোমে স্তাই?</div>
-        <div class="bangla">তুমি কেমন আছো?</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Come stai')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Sto bene, grazie!</div>
-        <div class="pronun">স্তো বেনে, গ্রাৎসিয়ে!</div>
-        <div class="bangla">আমি ভালো আছি, ধন্যবাদ!</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Sto bene, grazie')">🔊</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>🍕 খাবার ও রেস্তোরাঁ</h3>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Ho fame</div>
-        <div class="pronun">ও ফামে</div>
-        <div class="bangla">আমার ক্ষুধা লেগেছে</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Ho fame')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Il conto, per favore</div>
-        <div class="pronun">ইল কোন্তো, পের ফাভোরে</div>
-        <div class="bangla">বিল দিন, দয়া করে</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Il conto, per favore')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Delizioso!</div>
-        <div class="pronun">দেলিৎসিওসো!</div>
-        <div class="bangla">অসাধারণ সুস্বাদু!</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Delizioso')">🔊</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>🧭 পথ জিজ্ঞেস করা</h3>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Dov'è...?</div>
-        <div class="pronun">দোভে...?</div>
-        <div class="bangla">...কোথায়?</div>
-      </div>
-      <button class="speak-btn" onclick="speak("Dove è")">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Non capisco</div>
-        <div class="pronun">নন কাপিস্কো</div>
-        <div class="bangla">আমি বুঝতে পারছি না</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Non capisco')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Parli inglese?</div>
-        <div class="pronun">পার্লি ইঙ্গলেজে?</div>
-        <div class="bangla">তুমি কি ইংরেজি বলো?</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Parli inglese')">🔊</button>
-    </div>
-    <div class="phrase-row">
-      <div>
-        <div class="italian">Aiuto!</div>
-        <div class="pronun">আইউতো!</div>
-        <div class="bangla">সাহায্য করো!</div>
-      </div>
-      <button class="speak-btn" onclick="speak('Aiuto')">🔊</button>
-    </div>
-  </div>
-</div>
-
-<!-- QUIZ -->
 <div id="quiz" class="section">
-  <h2 class="sec-title">🧠 কুইজ দাও!</h2>
-
-  <div class="quiz-score">
-    <div class="score-item correct-s">
-      <span id="scoreCorrect">0</span>
-      সঠিক ✅
-    </div>
-    <div class="score-item wrong-s">
-      <span id="scoreWrong">0</span>
-      ভুল ❌
-    </div>
-  </div>
-
   <div class="quiz-card">
-    <div class="quiz-question" id="quizQ">—</div>
-    <div class="quiz-hint" id="quizHint">Italian শব্দটির বাংলা কী?</div>
-    <div class="quiz-options" id="quizOptions"></div>
-    <div class="quiz-result" id="quizResult"></div>
-    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">পরের প্রশ্ন →</button>
+    <h2 id="quizQ" style="color: var(--rosso);">?</h2>
+    <div id="quizOptions" style="margin-top: 20px;"></div>
+    <div id="quizResult" style="margin-top: 15px; font-weight: bold;"></div>
+    <button onclick="loadQuestion()" style="margin-top: 20px; padding: 10px 20px; border-radius: 8px; background: var(--scuro); color: white; border: none;">পরের প্রশ্ন</button>
   </div>
 </div>
 
 <script>
-// Alphabet data
 const alphabet = [
-  {l:'A',s:'আ'},{l:'B',s:'বি'},{l:'C',s:'চি/কি'},{l:'D',s:'দি'},
-  {l:'E',s:'এ'},{l:'F',s:'এফ্ফে'},{l:'G',s:'জি/গি'},{l:'H',s:'আক্কা'},
-  {l:'I',s:'ই'},{l:'L',s:'এল্লে'},{l:'M',s:'এম্মে'},{l:'N',s:'এন্নে'},
-  {l:'O',s:'ও'},{l:'P',s:'পি'},{l:'Q',s:'কু'},{l:'R',s:'এর্রে'},
+  {l:'A',s:'আ'},{l:'B',s:'বি'},{l:'C',s:'চি'},{l:'D',s:'দি'},{l:'E',s:'এ'},{l:'F',s:'এফ্ফে'},
+  {l:'G',s:'জি'},{l:'H',s:'আক্কা'},{l:'I',s:'ই'},{l:'L',s:'এল্লে'},{l:'M',s:'এম্মে'},
+  {l:'N',s:'এন্নে'},{l:'O',s:'ও'},{l:'P',s:'পি'},{l:'Q',s:'কু'},{l:'R',s:'এর্রে'},
   {l:'S',s:'এস্সে'},{l:'T',s:'তি'},{l:'U',s:'উ'},{l:'V',s:'ভি'},{l:'Z',s:'জেতা'}
 ];
 
-const alphaGrid = document.getElementById('alphaGrid');
-alphabet.forEach(a => {
-  const cell = document.createElement('div');
-  cell.className = 'alpha-cell';
-  cell.innerHTML = `<div class="letter">${a.l}</div><div class="sound">${a.s}</div>`;
-  cell.onclick = () => speak(a.l);
-  alphaGrid.appendChild(cell);
-});
-
-// Numbers data
-const numbers = [
-  {n:1,it:'Uno',bn:'এক'},{n:2,it:'Due',bn:'দুই'},{n:3,it:'Tre',bn:'তিন'},
-  {n:4,it:'Quattro',bn:'চার'},{n:5,it:'Cinque',bn:'পাঁচ'},{n:6,it:'Sei',bn:'ছয়'},
-  {n:7,it:'Sette',bn:'সাত'},{n:8,it:'Otto',bn:'আট'},{n:9,it:'Nove',bn:'নয়'},
-  {n:10,it:'Dieci',bn:'দশ'},{n:11,it:'Undici',bn:'এগারো'},{n:12,it:'Dodici',bn:'বারো'},
-  {n:13,it:'Tredici',bn:'তেরো'},{n:14,it:'Quattordici',bn:'চোদ্দো'},{n:15,it:'Quindici',bn:'পনেরো'},
-  {n:16,it:'Sedici',bn:'ষোলো'},{n:17,it:'Diciassette',bn:'সতেরো'},{n:18,it:'Diciotto',bn:'আঠারো'},
-  {n:19,it:'Diciannove',bn:'উনিশ'},{n:20,it:'Venti',bn:'বিশ'}
-];
-
-const numGrid = document.getElementById('numGrid');
-numbers.forEach(num => {
-  const cell = document.createElement('div');
-  cell.className = 'num-cell';
-  cell.innerHTML = `<span class="num-digit">${num.n}</span><span class="num-word">${num.it}</span><span class="num-bn">${num.bn}</span>`;
-  cell.onclick = () => speak(num.it);
-  numGrid.appendChild(cell);
-});
-
-// Quiz data
 const quizData = [
-  {q:'Ciao',a:'হ্যালো / বিদায়',opts:['হ্যালো / বিদায়','ধন্যবাদ','সকাল','মাফ করবেন']},
-  {q:'Grazie',a:'ধন্যবাদ',opts:['বিদায়','ধন্যবাদ','হ্যাঁ','না']},
-  {q:'Buongiorno',a:'শুভ সকাল',opts:['শুভ রাত্রি','শুভ সন্ধ্যা','শুভ সকাল','বিদায়']},
-  {q:'Sì',a:'হ্যাঁ',opts:['না','হয়তো','হ্যাঁ','কখনো না']},
-  {q:'Rosso',a:'লাল',opts:['নীল','সবুজ','হলুদ','লাল']},
-  {q:'Verde',a:'সবুজ',opts:['লাল','সবুজ','কালো','সাদা']},
-  {q:'Uno',a:'এক',opts:['তিন','দুই','এক','চার']},
-  {q:'Cinque',a:'পাঁচ',opts:['ছয়','সাত','পাঁচ','আট']},
-  {q:'Dieci',a:'দশ',opts:['নয়','দশ','এগারো','বারো']},
-  {q:'Scusa',a:'মাফ করবেন',opts:['ধন্যবাদ','বিদায়','সাহায্য','মাফ করবেন']},
-  {q:'Bianco',a:'সাদা',opts:['কালো','সাদা','নীল','লাল']},
-  {q:'Ho fame',a:'আমার ক্ষুধা লেগেছে',opts:['আমি ভালো আছি','আমার ক্ষুধা লেগেছে','বিল দিন','আমি বুঝছি না']},
-  {q:'Aiuto',a:'সাহায্য করো',opts:['বিদায়','ধন্যবাদ','সাহায্য করো','মাফ করবেন']},
-  {q:'Nero',a:'কালো',opts:['সাদা','হলুদ','কালো','সবুজ']},
-  {q:'Venti',a:'বিশ',opts:['দশ','পনেরো','বিশ','পঁচিশ']},
+  {it:'Madre', bn:'মা'}, {it:'Padre', bn:'বাবা'}, {it:'Fratello', bn:'ভাই'},
+  {it:'Oggi', bn:'আজ'}, {it:'Domani', bn:'আগামীকাল'}, {it:'Sole', bn:'রোদ'},
+  {it:'Casa', bn:'বাড়ি'}, {it:'Pane', bn:'রুটি'}, {it:'Acqua', bn:'পানি'}
 ];
 
-let currentQ = 0, correct = 0, wrong = 0, answered = false;
-const shuffled = [...quizData].sort(() => Math.random() - 0.5);
-
-function loadQuestion() {
-  if (currentQ >= shuffled.length) {
-    document.getElementById('quizQ').textContent = '🎉 শেষ!';
-    document.getElementById('quizHint').textContent = `মোট: ${correct} সঠিক, ${wrong} ভুল। দারুণ করেছো!`;
-    document.getElementById('quizOptions').innerHTML = '';
-    document.getElementById('nextBtn').textContent = '🔄 আবার খেলো';
-    document.getElementById('nextBtn').onclick = () => { currentQ = 0; correct = 0; wrong = 0; document.getElementById('scoreCorrect').textContent = 0; document.getElementById('scoreWrong').textContent = 0; shuffled.sort(() => Math.random()-0.5); loadQuestion(); document.getElementById('nextBtn').onclick = nextQuestion; document.getElementById('nextBtn').textContent = 'পরের প্রশ্ন →'; };
-    return;
-  }
-
-  answered = false;
-  const q = shuffled[currentQ];
-  document.getElementById('quizQ').textContent = q.q;
-  document.getElementById('quizHint').textContent = 'Italian শব্দটির বাংলা কী?';
-  document.getElementById('quizResult').textContent = '';
-  document.getElementById('quizResult').className = 'quiz-result';
-
-  const opts = [...q.opts].sort(() => Math.random() - 0.5);
-  const container = document.getElementById('quizOptions');
-  container.innerHTML = '';
-  opts.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'quiz-opt';
-    btn.textContent = opt;
-    btn.onclick = () => checkAnswer(btn, opt, q.a, q.q);
-    container.appendChild(btn);
-  });
+function speak(text) {
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'it-IT';
+  window.speechSynthesis.speak(utt);
 }
 
-function checkAnswer(btn, selected, answer, word) {
-  if (answered) return;
-  answered = true;
-  speak(word);
-  const allBtns = document.querySelectorAll('.quiz-opt');
-  allBtns.forEach(b => {
-    b.style.pointerEvents = 'none';
-    if (b.textContent === answer) b.classList.add('correct');
-  });
-  const result = document.getElementById('quizResult');
-  if (selected === answer) {
-    btn.classList.add('correct');
-    result.textContent = '✅ সঠিক! বাহ!';
-    result.className = 'quiz-result win';
-    correct++;
-    document.getElementById('scoreCorrect').textContent = correct;
-  } else {
-    btn.classList.add('wrong');
-    result.textContent = `❌ ভুল! সঠিক উত্তর: ${answer}`;
-    result.className = 'quiz-result lose';
-    wrong++;
-    document.getElementById('scoreWrong').textContent = wrong;
-  }
-}
-
-function nextQuestion() {
-  currentQ++;
-  loadQuestion();
-}
-
-// Tab switching
 function showTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
-  if (id === 'quiz') loadQuestion();
+  event.currentTarget.classList.add('active');
+  if(id === 'quiz') loadQuestion();
 }
 
-// Text-to-speech (Italian)
-function speak(text) {
-  if (!window.speechSynthesis) return;
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'it-IT';
-  utt.rate = 0.85;
-  utt.pitch = 1;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utt);
+// Render Alphabet
+const alphaGrid = document.getElementById('alphaGrid');
+alphabet.forEach(item => {
+  const div = document.createElement('div');
+  div.className = 'alpha-cell';
+  div.innerHTML = `<div style="font-weight:bold; font-size:1.2rem; color:var(--rosso)">${item.l}</div><div style="font-size:0.7rem">${item.s}</div>`;
+  div.onclick = () => speak(item.l);
+  alphaGrid.appendChild(div);
+});
+
+// Quiz Logic
+let currentAns = "";
+function loadQuestion() {
+  const item = quizData[Math.floor(Math.random() * quizData.length)];
+  currentAns = item.bn;
+  document.getElementById('quizQ').textContent = item.it;
+  document.getElementById('quizResult').textContent = "";
+  
+  let options = [item.bn];
+  while(options.length < 4) {
+    let r = quizData[Math.floor(Math.random() * quizData.length)].bn;
+    if(!options.includes(r)) options.push(r);
+  }
+  options.sort(() => Math.random() - 0.5);
+  
+  const optDiv = document.getElementById('quizOptions');
+  optDiv.innerHTML = options.map(o => `<button class="quiz-opt" onclick="check('${o}', this)">${o}</button>`).join('');
 }
 
-// Init quiz
-loadQuestion();
+function check(s, btn) {
+  if(s === currentAns) {
+    btn.style.background = "#d4edda";
+    document.getElementById('quizResult').textContent = "✅ সঠিক হয়েছে!";
+    speak(document.getElementById('quizQ').textContent);
+  } else {
+    btn.style.background = "#f8d7da";
+    document.getElementById('quizResult').textContent = "❌ ভুল! সঠিক: " + currentAns;
+  }
+}
 </script>
 </body>
 </html>
